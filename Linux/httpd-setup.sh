@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-yum install httpd.x86_64
-service httpd start
-systemctl enable httpd
-echo "Hello world" > /var/www/html/index.html
+#sudo -s
+yum update -y
+yum install -y httpd.x86_64
+systemctl start httpd.service
+systemctl enable httpd.service
+echo "Hello world from $(hostname -f)" > /var/www/html/index.html
