@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-
+##### Making an Amazon EBS volume available for use on Linux #############
+##### https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html #########
 # check attached volumes
 lsblk
 ## Output example
@@ -18,3 +19,18 @@ sudo mkfs -t ext4 /dev/xvdb
 sudo mkdir /data
 sudo mount /dev/xvdb /data # Mounting data
 
+## Automatically mount an attached volume after reboot ##
+# Create backup of your /etc/fstab file that you can use if you accidently destroy or delete this file when you are editing it.
+sudo cp /etc/fstab /etc/fstab.origin
+# Open the /etc/fstab file using any text editor, such as nano or vim.
+sudo vim /etc/fstab
+
+# Add a new line to the end of the file for your volume using the following format:
+# device_name mount_point file_system_type defaults,nofail  0  2
+# /dev/xvdb /data ext4 defaults,nofail  0  2
+
+# validate
+sudo file -s /dev/xvdb
+sudo umount /data
+lsblk
+sudo mount -a
