@@ -1,0 +1,3 @@
+// Switching between kubernetes cluster in kubeconfigK
+kubectl config use-context kubernetes-admin-at-ccd-c15a032
+
